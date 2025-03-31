@@ -29,12 +29,12 @@ public class EmailService implements EmailSender{
             mimeMessageHelper.setText(emailContent,true);
             mimeMessageHelper.setTo(to);
             mimeMessageHelper.setSubject("Email confirmation");
-            mimeMessageHelper.setFrom("no-reply@closetmte.com");
+            mimeMessageHelper.setFrom("no-reply@closetmate.com");
             mailSender.send(mimeMessage);
             log.info("Sending email to " + to);
         }catch (MessagingException e){
             log.error("Error sending email", e);
-            throw new IllegalStateException("failed to send email", e);
+            throw new IllegalStateException("Failed to send email", e);
         }
     }
 }

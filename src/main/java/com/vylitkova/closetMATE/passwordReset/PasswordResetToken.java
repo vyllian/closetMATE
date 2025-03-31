@@ -1,4 +1,4 @@
-package com.vylitkova.closetMATE.registration.token;
+package com.vylitkova.closetMATE.passwordReset;
 
 import com.vylitkova.closetMATE.entity.user.User;
 import jakarta.persistence.*;
@@ -10,33 +10,28 @@ import org.hibernate.annotations.GenericGenerator;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-public class ConfirmationToken {
+public class PasswordResetToken {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column( updatable = false, nullable = false)
     private UUID id;
 
-    @Column( nullable = false)
     private String token;
-    @Column( nullable = false)
-    private LocalDateTime expiresAt;
-    @Column( nullable = false)
-    private LocalDateTime createdAt;
-    private LocalDateTime confirmedAt;
 
     @ManyToOne
-    @JoinColumn( nullable = false, name = "user_id")
+    @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, User user ) {
+    private LocalDateTime expiresAt;
+
+    public PasswordResetToken(String token, User user, LocalDateTime expiresAt) {
         this.token = token;
-        this.expiresAt = expiresAt;
-        this.createdAt = createdAt;
         this.user = user;
+        this.expiresAt = expiresAt;
     }
 }
